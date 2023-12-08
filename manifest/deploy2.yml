@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodecontainer
+        image: baskarvj/httpdsample:6d80107e89b0b755b1a59fecdc734103bf08f854
+        ports:
+        - containerPort: 80
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service2
+spec:
+  selector:
+    app: nodejs
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
